@@ -1,4 +1,4 @@
-all: shell.out
+all: npshell
 
 .PONY: clean
 
@@ -8,7 +8,7 @@ C=-c
 EXE=npshell
 objects= server.o npshell.o pipe.o command.o util.o
 
-shell.out : $(objects)
+$(EXE) : $(objects)
 	$(G) $(O) $@ $^
 server.o : server.cpp npshell.h
 	$(G) $(C) $< $(O) $@
@@ -22,4 +22,4 @@ util.o : shell_util.cpp shell_util.h
 	$(G) $(C) $< $(O) $@
 
 clean:
-	rm *.o *.out	
+	rm *.o npshell	

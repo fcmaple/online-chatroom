@@ -2,13 +2,6 @@
 #include "server.h"
 
 using namespace std;
-// int user_line[MAX_USER]={0} ; //每個user在shell裡面跑第幾行;
-// int user_p[MAX_USER][MAX_USER][2] = {0};
-// int user_pipe_check[MAX_USER][MAX_USER]= {0};
-// int user[MAX_USER]={0};
-// char* user_port[MAX_USER] = {0};
-// char* user_name[MAX_USER] ={0};
-// char* user_ip[MAX_USER]={0};
 
 
 Pipe* global_p;
@@ -37,7 +30,7 @@ int main(int argc,char* argv[]){
     // cout<<portNum<<endl;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(portNum);
-    serverAddr.sin_addr.s_addr = inet_addr("192.168.2.11");
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
 
     if(setsockopt(msock,SOL_SOCKET,SO_REUSEADDR,&flag,len)==-1){

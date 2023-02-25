@@ -33,7 +33,7 @@ int main(int argc,char* argv[]){
     // cout<<portNum<<endl;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(portNum);
-    serverAddr.sin_addr.s_addr = inet_addr("192.168.2.11");
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
     memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);
 
     if(setsockopt(msock,SOL_SOCKET,SO_REUSEADDR,&flag,len)==-1){
