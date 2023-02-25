@@ -43,7 +43,7 @@ make
 
 3. Connect to server by `nc`
 ```shell=
-np [ip] [port]
+nc [ip] [port]
 ```
 ## Implementation detail
 ### Shell
