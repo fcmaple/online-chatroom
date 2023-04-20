@@ -43,7 +43,7 @@ int SHM::npshell(int mySocket,int user_id){
         cout<<"% ";
         if(!getline(cin,str_in,'\n')) break;
         if(str_in=="\r") continue;
-        str_in = str_in.substr(0,str_in.size()-1);
+        str_in = str_in.substr(0,str_in.size());
         ss.str(str_in); // put str_in in string buffer
         // cout<<"command "<<str_in<<endl;
         c.set_set(ss,user_id,str_in);
