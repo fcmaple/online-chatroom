@@ -39,20 +39,15 @@ int Server::chat_cmd(int fd)
     user_id = find_user_id(fd);
     if(user_id<0) cerr<<"id error\n";
     res = npshell(fd,user_id);
-    if(res< 0){
-        //cout<<"now to close"<<res<<endl;;
-    }else{
+    if(res>=0){
         user_line[user_id]++;
-        // cout<<"user id"<<user_id<<" line : "<<user_line[user_id]<<endl;
     }
     return res;
 }
 int Server::set_user(char* port,char* name,char* ip,int id){
-    // cout<<"user id "<<id<<endl;
     user_port[id] = port;
     user_name[id] = name;
     user_ip[id] = ip;
-    // cout<<"set_user "<<user_name[id]<<" "<<user_ip[id]<<" "<<user_port[id]<<endl;
     return 1;
 }
 int Server::setUserEnv(int id){
@@ -183,6 +178,7 @@ int Server::reName(char* newName,int user_id){
     for(int d=1;d<=MAX_USER;d++){
         if(user[d]!=-1)
         {
+            // cout << newName <<" " << user_name[d] << endl;
             if(strcmp(newName,user_name[d])==0 && strlen(newName)==strlen(user_name[d])){
                 send(user[user_id],(char*)"*** User '",strlen((char*)"*** User '"),0);
                 send(user[user_id],user_name[d],strlen(user_name[d]),0);
@@ -209,6 +205,7 @@ int Server::specialEvent(Command com,int user_id){
             // cout<<"exit!!"<<endl;
             return -1;
         }else if(cmd[0]=="name"){
+            // cout << cmd[1]<<endl;
             int x = reName((char*)cmd[1].c_str(),user_id);
             if(x<0) return -1;
             if(!x) return 0;
@@ -282,20 +279,17 @@ Server::Server(Pipe *p){
     this->P = p;
 }
 string count_command(char* buf){
-    int q=0;
-    string s="";
-    if(buf[0]=='\r') {
-        return s;
-    }
-    if(strlen(buf)==0 || buf[1]=='\n') return "";
-    while(buf[q]!='\n' || buf[q]!='\0'){
-        if(buf[q]=='\r') break;
-        q++;
-    }
-    char* bbuf = (char*)calloc(MAX_WORDS_IN_LINE,sizeof(char));
-    strncpy(bbuf,buf,q);
-    string str = string(bbuf);
-    free(bbuf);
+    // int q=0;
+    // string s="";
+    // if(buf[0]=='\r' || buf[0]=='\n') {
+    //     return s;
+    // }
+    // if(strlen(buf)==0 || buf[1]=='\n') return "";
+    // while(buf[q]!='\n' || buf[q]!='\0'){
+    //     if(buf[q]=='\r') break;
+    //     q++;
+    // }
+    string str = string(buf);
     return str;
 }
 void handler_end(int signo)

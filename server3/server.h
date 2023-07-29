@@ -1,7 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#define MAX_WORDS_IN_LINE 500000
+#define MAX_WORDS_IN_LINE 1024
 #define MAX_USER 40
 #define sharemem 5556
 #include <stdio.h>
@@ -51,11 +51,11 @@ typedef struct
     int event; // signal event
     int tell_user;
     int yell_user;
-    char tellmes[1024];
-    char yellmes[1024];
+    char tellmes[MAX_WORDS_IN_LINE];
+    char yellmes[MAX_WORDS_IN_LINE];
     int user_pipe_sender;
     int user_pipe_rec;
-    char user_mes[MAX_USER][MAX_USER][1024];
+    char user_mes[MAX_USER][MAX_USER][MAX_WORDS_IN_LINE];
     int mes_come_table[MAX_USER][MAX_USER];
     int fifo_table[MAX_USER][MAX_USER];
     int me;

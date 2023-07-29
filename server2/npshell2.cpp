@@ -24,25 +24,24 @@ using namespace std;
 #include "server.h"
 // global
 
-char command_buf[MAX_WORDS_IN_LINE] = {};
 
 
 int Server::npshell(int mySocket,int user_id){
+    char command_buf[MAX_WORDS_IN_LINE] = {};
+
     stringstream ss;
     string str_in="";
     Command c;
-
     initset(user_id);
     // dup2(serverSocket,0);
     // dup2(serverSocket,1);
     // dup2(serverSocket,2);
     // ss.clear();
-
     // if(!getline(cin,str_in,'\n')) break;
     // pip.set_output(mySocket);
-    read(mySocket,command_buf,sizeof(command_buf));
+    ssize_t res =  read(mySocket,command_buf,sizeof(command_buf));
     str_in = count_command(command_buf);
-    if(str_in=="") {
+    if(str_in=="\n") {
         user_line[user_id]--;
         send(mySocket,(char*)"% ",strlen("% "),0);
         return 0;

@@ -50,7 +50,6 @@ int main(int argc,char* argv[]){
     FD_ZERO(&afds);
     FD_SET(msock,&afds);
     FD_SET(0,&afds);
-    // for(int i=1;i<=MAX_USER;i++) user[i]=-1;
     // signal(SIGINT,handler_end);
     while(1){
         memcpy(&rfds,&afds,sizeof(rfds));

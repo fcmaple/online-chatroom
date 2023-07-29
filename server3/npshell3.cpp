@@ -42,12 +42,10 @@ int SHM::npshell(int mySocket,int user_id){
         ss.clear();
         cout<<"% ";
         if(!getline(cin,str_in,'\n')) break;
-        if(str_in=="\r") continue;
+        if(str_in=="/r" || str_in.size()==0) continue;
         str_in = str_in.substr(0,str_in.size());
         ss.str(str_in); // put str_in in string buffer
-        // cout<<"command "<<str_in<<endl;
         c.set_set(ss,user_id,str_in);
-        // c->show_command();
         int special = specialEvent(c,user_id);
         if(special>0) {
             pair<int,int> userP = userPipe(str_in,user_id);
@@ -56,7 +54,6 @@ int SHM::npshell(int mySocket,int user_id){
         }
         else if(special==-1) return -1;
         str_in="";
-        // cout<<str_in<<endl;
     }
     return 1;
 }

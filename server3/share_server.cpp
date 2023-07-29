@@ -81,9 +81,9 @@ int SHM::free_user(int user_id){
 
     sem->wait_sem(semType::SH);
     sem->wait_sem(semType::CLIENT);
-    memset(sh->ip[user_id],'\0',sizeof(sh->ip[user_id])+100);
-    memset(sh->port[user_id],'\0',sizeof(sh->port[user_id]));
-    memset(sh->name[user_id],'\0',sizeof(sh->name[user_id]));
+    memset(sh->ip[user_id],'\0',MAX_USER);
+    memset(sh->port[user_id],'\0',MAX_USER);
+    memset(sh->name[user_id],'\0',MAX_USER);
     sh->user[user_id] = -1;
     sh->pidd[user_id] = -1;
     for(int q=1;q<MAX_USER;q++){
@@ -152,7 +152,7 @@ int SHM::specialEvent(Command com,int user_id){
             sem->wait_sem(semType::CLIENT);
             sh->newn = user_id;
             sh->event=3;
-            memset(sh->name[user_id],'\0',MAX_WORDS_IN_LINE);
+            memset(sh->name[user_id],'\0',MAX_USER);
             memcpy(sh->name[user_id],cmd[1].c_str(),cmd[1].size());
             for(int q=1;q<MAX_USER;q++){
                 if(sh->user[q]==-1) continue;

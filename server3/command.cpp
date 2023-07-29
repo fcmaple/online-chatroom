@@ -24,7 +24,6 @@ using namespace std;
 #include "Pipe.h"
 #include "shell_util.h"
 #include "server.h"
-#define MAX_WORDS_IN_LINE 500000
 void Command::show_command(){
     for(auto i:command){
         for(auto j:i) cout<<j<<" ";
